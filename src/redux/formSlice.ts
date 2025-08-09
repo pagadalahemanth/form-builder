@@ -1,4 +1,3 @@
-// src/redux/formSlice.ts
 import { createSlice } from '@reduxjs/toolkit';
 import type { PayloadAction } from '@reduxjs/toolkit';
 import type { FormSchema } from '../types/formTypes';

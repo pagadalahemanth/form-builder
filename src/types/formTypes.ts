@@ -5,10 +5,12 @@ export interface ValidationRules {
   required?: boolean;
   minLength?: number;
   maxLength?: number;
-  min?: number; // for number
-  max?: number; // for number
+  min?: number | string; // number for numeric, string for date
+  max?: number | string; // number for numeric, string for date
   email?: boolean;
-  passwordRule?: boolean; // custom (min 8, must contain number)
+  passwordRule?: boolean;
+  pattern?: string; // for custom regex validation
+  customError?: string; // custom error message
 }
 
 export interface Option {

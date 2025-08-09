@@ -1,4 +1,3 @@
-// src/components/FormRenderer.tsx
 import React, { useMemo, useState, useEffect } from 'react';
 import { Box, TextField, Button, MenuItem, Checkbox, FormControlLabel, RadioGroup, Radio, FormGroup, Typography } from '@mui/material';
 import type { FormSchema, FieldSchema } from '../types/formTypes';
@@ -42,9 +41,13 @@ export default function FormRenderer({ schema, readOnly = false }: Props) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [values, schema.fields]);
 
-  const onChange = (key: string, val: any) => {
-    setValues(v => ({ ...v, [key]: val }));
-    setErrors(e => ({ ...e, [key]: null }));
+  const onChange = (key: string, val: any, field: FieldSchema) => {
+    const newValue = val;
+    setValues(v => ({ ...v, [key]: newValue }));
+    
+    // Validate on change for better UX
+    const error = validateValue(newValue, field.validations);
+    setErrors(e => ({ ...e, [key]: error }));
   };
 
   const validateAll = (): boolean => {
@@ -79,7 +82,13 @@ export default function FormRenderer({ schema, readOnly = false }: Props) {
             type={f.type === 'number' ? 'number' : f.type === 'date' ? 'date' : 'text'}
             label={f.label}
             value={value ?? ''}
-            onChange={(e) => onChange(f.key, f.type === 'number' ? Number(e.target.value) : e.target.value)}
+            onChange={(e) => onChange(f.key, f.type === 'number' ? Number(e.target.value) : e.target.value, f)}
+            inputProps={{
+              min: f.type === 'number' && f.validations?.min,
+              max: f.type === 'number' && f.validations?.max,
+              pattern: f.validations?.pattern
+            }}
+            error={!!errors[f.key]}
             multiline={f.type === 'textarea'}
             helperText={error ?? (f.derived?.isDerived ? 'Derived field' : '')}
             InputProps={{ readOnly: f.derived?.isDerived || readOnly }}

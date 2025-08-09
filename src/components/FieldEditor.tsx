@@ -1,9 +1,7 @@
-// src/components/FieldEditor.tsx
 import React, { useState, useEffect } from 'react';
-import { Box, TextField, Select, MenuItem, Switch, Button, FormControlLabel, IconButton } from '@mui/material';
+import { Box, TextField, Select, MenuItem, Switch, Button, FormControlLabel } from '@mui/material';
 import { v4 as uuidv4 } from 'uuid';
-import type { FieldSchema } from '../types/formTypes';
-import type { FieldType } from '../types/formTypes';
+import type { FieldSchema, FieldType } from '../types/formTypes';
 
 interface Props {
   initial?: FieldSchema | null;

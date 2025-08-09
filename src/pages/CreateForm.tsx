@@ -1,4 +1,3 @@
-// src/pages/CreateForm.tsx
 import React, { useState } from 'react';
 import { Box, Button, List, ListItem, IconButton, Typography, Divider, TextField } from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
@@ -72,7 +71,7 @@ export default function CreateForm() {
 
       <Box sx={{ display:'flex', gap:1 }}>
         <Button startIcon={<AddIcon />} onClick={addField}>Add field</Button>
-        <Button onClick={() => { /* reorder UI can be added; simple move pop */ }}>Reorder (drag not implemented)</Button>
+        <Button disabled onClick={() => {}}>Reorder fields</Button>
       </Box>
 
       <Divider />
