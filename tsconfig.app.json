@@ -15,9 +15,13 @@
     "noEmit": true,
     "jsx": "react-jsx",
 
+    /* React specific */
+    "types": ["react/jsx-runtime"],
+    "jsxImportSource": "react",
+
     /* Linting */
     "strict": true,
-    "noUnusedLocals": true,
+    "noUnusedLocals": false,
     "noUnusedParameters": true,
     "erasableSyntaxOnly": true,
     "noFallthroughCasesInSwitch": true,

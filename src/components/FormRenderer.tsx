@@ -98,7 +98,7 @@ export default function FormRenderer({ schema, readOnly = false }: Props) {
 
       case 'select':
         return (
-          <TextField select label={f.label} value={value ?? ''} onChange={e => onChange(f.key, e.target.value)} helperText={error}>
+          <TextField select label={f.label} value={value ?? ''} onChange={e => onChange(f.key, e.target.value, f)} helperText={error}>
             {(f.options || []).map(o => <MenuItem key={o.id} value={o.value}>{o.label}</MenuItem>)}
           </TextField>
         );
@@ -107,7 +107,7 @@ export default function FormRenderer({ schema, readOnly = false }: Props) {
         return (
           <Box>
             <Typography variant="subtitle1">{f.label}</Typography>
-            <RadioGroup value={value ?? ''} onChange={e => onChange(f.key, e.target.value)}>
+            <RadioGroup value={value ?? ''} onChange={e => onChange(f.key, e.target.value, f)}>
               {(f.options || []).map(o => <FormControlLabel key={o.id} value={o.value} control={<Radio />} label={o.label} />)}
             </RadioGroup>
             {error && <Typography color="error">{error}</Typography>}
@@ -125,7 +125,7 @@ export default function FormRenderer({ schema, readOnly = false }: Props) {
                   control={<Checkbox checked={(value || []).includes(o.value)} onChange={(e) => {
                     const cur = value || [];
                     const next = e.target.checked ? [...cur, o.value] : cur.filter((v: any) => v !== o.value);
-                    onChange(f.key, next);
+                    onChange(f.key, next, f);
                   }} />}
                   label={o.label}
                 />

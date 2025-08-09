@@ -51,11 +51,14 @@ export const validateValue = (value: any, rules?: ValidationRules) : string | nu
     if (isNaN(numValue)) {
       return 'Please enter a valid number.';
     }
-    if (rules.min !== undefined && numValue < rules.min) {
-      return `Minimum value is ${rules.min}.`;
+    const minValue = typeof rules.min === 'string' ? Number(rules.min) : rules.min;
+    const maxValue = typeof rules.max === 'string' ? Number(rules.max) : rules.max;
+    
+    if (minValue !== undefined && numValue < minValue) {
+      return `Minimum value is ${minValue}.`;
     }
-    if (rules.max !== undefined && numValue > rules.max) {
-      return `Maximum value is ${rules.max}.`;
+    if (maxValue !== undefined && numValue > maxValue) {
+      return `Maximum value is ${maxValue}.`;
     }
   }
 
